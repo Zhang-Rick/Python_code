@@ -14,7 +14,7 @@ DataPath = os.path.expanduser('∼ee364/DataFolder/Prelab01')
 
 
 def find(pattern):
-     with open("sequence.txt") as file:
+     with open('sequence.txt') as file:
          testsite_array = file.readlines()
      i = 0#sequence index
      j = 0#find index
@@ -206,7 +206,7 @@ def convertToInteger(boolList):
     #print(array)
     return array
 
-if __name__ =="__main__":
+#if __name__ =="__main__":
     #find("x8")
     #getStreakProduct("11114822",5,32)
     #writePyramids('Pyramis15.txt',15,5,'*')
