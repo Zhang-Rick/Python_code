@@ -41,7 +41,7 @@ def find(pattern):
                   break
               x += 1
          i += 1
-     print(array)
+
      return array
 def getStreakProduct(sequence, maxSize, product):
     i = 0
@@ -76,7 +76,7 @@ def getStreakProduct(sequence, maxSize, product):
                    j -= 1
                array.append(answer)
         i+=1
-    print(array)
+
     return array
 
 def writePyramids(filePath,baseSize,count,char):
@@ -188,7 +188,7 @@ def convertToBoolean(num,size):
     while len(array) < size:
         array.append(False)
     array = array[::-1]
-    print(array)
+
     return array
 def convertToInteger(boolList):
     i = 0
@@ -207,8 +207,8 @@ def convertToInteger(boolList):
     return array
 
 if __name__ =="__main__":
-    find("x1")
-    getStreakProduct("11114822",5,32)
+    #find("x8")
+    #getStreakProduct("11114822",5,32)
     #writePyramids('Pyramis15.txt',15,5,'*')
     #getStreaks("AAASSSSSSAPP","SAQT")
     #findNames(["George Smith", "Mark Johnson", "Cordell Theodore", "Maria Satterfield","Johnson Cadence"], "FL", "johnson")
