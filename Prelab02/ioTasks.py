@@ -169,17 +169,17 @@ def getCountOver(symbol,price):
     return n
 
 #This  block  is  optional
-if __name__  == "__main__":
-    getMaxDifference('AAPL')
-    getMaxDifference('AMZN')
-    getMaxDifference('FB')
-    getMaxDifference('MSFT')
-    getMaxDifference('TSLA')
-    getGainPercent('AAPL')
-    getBestGain('2018/12/14')
-    getAveragePrice('AAPL', 2019)
-    getCountOver('AAPL', 150)
-    findDate('AAPL.dat','2018/12/14')
+#if __name__  == "__main__":
+    #getMaxDifference('AAPL')
+    #getMaxDifference('AMZN')
+    #getMaxDifference('FB')
+    #getMaxDifference('MSFT')
+    #getMaxDifference('TSLA')
+    #getGainPercent('AAPL')
+    #getBestGain('2018/12/14')
+    #getAveragePrice('AAPL', 2019)
+    #getCountOver('AAPL', 150)
+    #findDate('AAPL.dat','2018/12/14')
 
     #getVolumeSum('AAPL', '2019/01/02', '2019/01/11')
 
