@@ -30,12 +30,13 @@ def getMaxDifference(symbol):
             date = array[0]
         i += 1
 
-    print(max_num,date)
+    #print(max_num,date)
     return date
         #     line = file.readlines()
 def getGainPercent(symbol):
      symbol += ".dat"
-     with open(symbol,'r') as file:
+     filename = os.path.join(DataPath, symbol)
+     with open(filename,'r') as file:
          line = file.read().splitlines()
      i = 2
      n = 0
@@ -44,9 +45,9 @@ def getGainPercent(symbol):
          if (float(array[1]) - float(array[3])) > 0.0:
              n += 1
          i += 1
-     print(n)
+     #print(n)
      k = n /(len(line) - 2) * 100
-     print(k)
+     #print(k)
      return k
 
 def getVolumeSum(symbol, date1, date2):
@@ -58,25 +59,53 @@ def getVolumeSum(symbol, date1, date2):
             line = file.read().splitlines()
         start = findDate(symbol,date1)
         finish = findDate(symbol,date2)
-        print(start,finish)
+        #print(start,finish)
         i = start
         sum = 0
         if (start < finish):
             while i < finish + 1:
                 array = line[i].split(',')
-                print(array)
+                #print(array)
                 #array2 = array.split(',')
                 sum += float(array[2])
                 i += 1
         else:
             while i > finish - 1:
                 array = line[i].split(',')
-                print(array)
+                #print(array)
                 sum += float(array[2])
                 i -= 1
-        print(sum)
+        #print(sum)
         return  sum
 
+
+
+
+
+
+def getBestGain(date):
+
+    onlyfiles = [f for f in listdir(DataPath) if isfile(join(DataPath,f))]
+    #print(onlyfiles)
+    array = []
+    i = 0
+    maximum = 0
+    while i < len(onlyfiles):
+        filename = os.path.join(DataPath, onlyfiles[i])
+        #print(filename)
+        with open(filename, 'r') as file:
+            line = file.read().split()
+        #print(line)
+        j = findDate(onlyfiles[i],date)
+        data = line[j].split(',')
+        #print(data)
+        percent = (float(data[1]) - float(data[3]))/float(date[3]) * 100
+        if maximum < percent:
+            maximum = percent
+            l = i
+        i += 1
+
+    return(onlyfiles[l])
 
 def findDate(symbol,date):
     filename = os.path.join(DataPath, symbol)
@@ -91,54 +120,66 @@ def findDate(symbol,date):
     return i
 
 def findYear(symbol, year):
-    filename = os.path.join(DataPath, symbol+'.dat')
-    with open(filename , 'r') as file:
+    filename = os.path.join(DataPath, symbol)
+    with open(filename, 'r') as file:
         line = file.read().splitlines()
     i = 2
     array =[]
+    array2 = []
     while(i < len(line) - 2):
         array = line[i].split(',')
-        if year == array.split('/')[0]:
-            array.append(i)
-    answer = [array[0],array[len(array) - 1]]
-    print(answer)
+        if str(year) == array[0].split('/')[0]:
+
+            array2.append(i)
+            if str(year) != array[0].split('/')[0]:
+                break
+        i += 1
+    answer = [array2[0],array2[len(array2) - 1]]
     return answer
 
-
-
-def getBestGain(date):
-
-    onlyfiles = [f for f in listdir(DataPath) if isfile(join(DataPath,f))]
-    #print(len(onlyfiles))
-    array = []
-    i = 0
-    maximum = 0
-    while i < len(onlyfiles):
-        with open(onlyfiles[i], 'r') as file:
-            line = file.read().split()
-        print(line)
-        j = findDate(onlyfiles[i],date)
-        data = line[j].split(',')
-        #print(data)
-        percent = (float(data[1]) - float(data[3]))/float(date[3]) * 100
-        if maximum < percent:
-            maximum = percent
-            l = i
+def getAveragePrice(symbol,year):
+    symbol += '.dat'
+    [start, finish] = findYear(symbol,year)
+    filename = os.path.join(DataPath, symbol)
+    with open(filename, 'r') as file:
+        line = file.read().splitlines()
+    i = start
+    n = 0
+    DailyAve = 0
+    while i < finish + 1:
+        close = float(line[i].split(',')[1])
+        open1 = float(line[i].split(',')[3])
+        DailyAve += (close + open1) / 2
+        n += 1
         i += 1
+    ave = DailyAve / n
+    #print(ave)
+    return ave
 
-    return(onlyfiles[l])
+def getCountOver(symbol,price):
+    filename = os.path.join(DataPath, symbol+'.dat')
+    with open(filename, 'r') as file:
+        line = file.read().splitlines()
+    i = 2
+    n = 0
+    while i < len(line):
+        if(float(line[i].split(',')[1]) >= price and float(line[i].split(',')[3]) >= price and float(line[i].split(',')[4]) >= price and float(line[i].split(',')[5]) >= price):
+            n += 1
+        i += 1
+    return n
 
 #This  block  is  optional
 if __name__  == "__main__":
-    #getMaxDifference('AAPL')
-    #getMaxDifference('AMZN')
-    #getMaxDifference('FB')
-    #getMaxDifference('MSFT')
-    #getMaxDifference('TSLA')
-    #getGainPercent('AAPL')
-    #getBestGain('2018/12/14')
-    findYear('APPL',2019)
-    #findDate('AAPL.dat','2018/12/14')
+    getMaxDifference('AAPL')
+    getMaxDifference('AMZN')
+    getMaxDifference('FB')
+    getMaxDifference('MSFT')
+    getMaxDifference('TSLA')
+    getGainPercent('AAPL')
+    getBestGain('2018/12/14')
+    getAveragePrice('AAPL', 2019)
+    getCountOver('AAPL', 150)
+    findDate('AAPL.dat','2018/12/14')
 
     #getVolumeSum('AAPL', '2019/01/02', '2019/01/11')
 
