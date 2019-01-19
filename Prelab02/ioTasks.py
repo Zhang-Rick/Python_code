@@ -98,14 +98,16 @@ def getBestGain(date):
         #print(line)
         j = findDate(onlyfiles[i],date)
         data = line[j].split(',')
-        #print(data)
-        percent = (float(data[1]) - float(data[3]))/float(date[3]) * 100
+        #print(data,data[3])
+
+
+        percent = (float(data[1]) - float(data[3]))/float(data[3]) * 100
         if maximum < percent:
             maximum = percent
             l = i
         i += 1
 
-    return(onlyfiles[l])
+    return(maximum)
 
 def findDate(symbol,date):
     filename = os.path.join(DataPath, symbol)
@@ -176,9 +178,9 @@ def getCountOver(symbol,price):
     #getMaxDifference('MSFT')
     #getMaxDifference('TSLA')
     #getGainPercent('AAPL')
-    #getBestGain('2018/12/14')
-    #getAveragePrice('AAPL', 2019)
-    #getCountOver('AAPL', 150)
+    #print(getBestGain('2019/01/11'))
+    #print(getAveragePrice('AAPL', 2019))
+    #print(getCountOver('AAPL', 179.35))
     #findDate('AAPL.dat','2018/12/14')
 
     #getVolumeSum('AAPL', '2019/01/02', '2019/01/11')
