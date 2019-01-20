@@ -50,32 +50,26 @@ def getGainPercent(symbol):
      return k
 
 def getVolumeSum(symbol, date1, date2):
-    if str(date1) >= str(date2):
-        return None
-    else:
+
         symbol = symbol + ".dat"
-        with open(symbol, 'r') as file:
+        filename = os.path.join(DataPath, symbol)
+        with open(filename, 'r') as file:
             line = file.read().splitlines()
         start = findDate(symbol,date1)
         finish = findDate(symbol,date2)
+        if start <= finish:
+            return None
         #print(start,finish)
         i = start
-        sum = 0
-        if (start < finish):
-            while i < finish + 1:
-                array = line[i].split(',')
-                #print(array)
-                #array2 = array.split(',')
-                sum += float(array[2])
-                i += 1
-        else:
-            while i > finish - 1:
-                array = line[i].split(',')
-                #print(array)
-                sum += float(array[2])
-                i -= 1
-        #print(sum)
-        return  sum
+        sum = 0.0
+        #print(line[finish].split(',')[2],line[start].split(',')[2])
+
+        while i > finish - 1:
+            array = line[i].split(',')
+            sum += float(array[2])
+            i -= 1
+        return int(sum)
+
 
 
 
@@ -173,18 +167,19 @@ def getCountOver(symbol,price):
     return n
 
 #This  block  is  optional
-if __name__  == "__main__":
-    print(getMaxDifference('AAPL'))
-    print(getMaxDifference('AMZN'))
-    print(getMaxDifference('FB'))
-    print(getMaxDifference('MSFT'))
-    print(getMaxDifference('TSLA'))
+#if __name__  == "__main__":
+    #print(getMaxDifference('AAPL'))
+    #print(getMaxDifference('AMZN'))
+    #print(getMaxDifference('FB'))
+    #print(getMaxDifference('MSFT'))
+    #print(getMaxDifference('TSLA'))
     #print(getGainPercent('TSLA'))
     #print(getBestGain('2015/07/07'))
     #print(getAveragePrice('FB', 2014))
     #print(getCountOver('MSFT', 99.43))
     #findDate('AAPL.dat','2018/12/14')
 
-    #getVolumeSum('AAPL', '2019/01/02', '2019/01/11')
-
+   # print(getVolumeSum('MSFT', '2014/01/17', '2018/01/08'))
+    #22110230
+   # 30476834813
     # Write  anything  here to test  your  cd
