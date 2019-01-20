@@ -44,7 +44,7 @@ def getGainPercent(symbol):
          if (float(array[1]) > float(array[3])):
              n += 1
          i += 1
-     print(n)
+     #print(n)
      k = n /(len(line)-2) * 100
      #print(k)
      return k
@@ -173,13 +173,13 @@ def getCountOver(symbol,price):
     return n
 
 #This  block  is  optional
-#if __name__  == "__main__":
-    #getMaxDifference('AAPL')
-    #getMaxDifference('AMZN')
-    #getMaxDifference('FB')
-    #getMaxDifference('MSFT')
-    #getMaxDifference('TSLA')
-    #print(getGainPercent('FB'))
+if __name__  == "__main__":
+    print(getMaxDifference('AAPL'))
+    print(getMaxDifference('AMZN'))
+    print(getMaxDifference('FB'))
+    print(getMaxDifference('MSFT'))
+    print(getMaxDifference('TSLA'))
+    #print(getGainPercent('TSLA'))
     #print(getBestGain('2015/07/07'))
     #print(getAveragePrice('FB', 2014))
     #print(getCountOver('MSFT', 99.43))
