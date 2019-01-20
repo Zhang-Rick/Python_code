@@ -1,8 +1,8 @@
 #######################################################
-#    Author:      <Your  Full Name >
-#    email:       <Your  Email >
-#    ID:           <Your  course ID , e.g. ee364j20 >
-#    Date:         <Start  Date >
+#    Author:      <Linfeng Zhang >
+#    email:       <zhan2642@purdue.edu >
+#    ID:           <ee364b21 , e.g. ee364j20 >
+#    Date:         <01/19/2019 >
 #######################################################
 import os      # List of  module  import  statements
 import sys     # Each  one on a line
