@@ -39,13 +39,13 @@ def getGainPercent(symbol):
          line = file.read().splitlines()
      i = 2
      n = 0
-     while (i < len(line) - 2):
+     while (i < len(line)):
          array = line[i].split(',')
-         if (float(array[1]) - float(array[3])) > 0.0:
+         if (float(array[1]) > float(array[3])):
              n += 1
          i += 1
-     #print(n)
-     k = n /(len(line) - 2) * 100
+     print(n)
+     k = n /(len(line)-2) * 100
      #print(k)
      return k
 
@@ -88,7 +88,7 @@ def getBestGain(date):
     #print(onlyfiles)
     array = []
     i = 0
-    maximum = 0
+    maximum = 0.0
     while i < len(onlyfiles):
         filename = os.path.join(DataPath, onlyfiles[i])
         #print(filename)
@@ -100,7 +100,7 @@ def getBestGain(date):
         #print(data,data[3])
 
 
-        percent = (float(data[1]) - float(data[3]))/float(data[3]) * 100
+        percent = (abs(float(data[1]) - float(data[3])))/float(data[3]) * 100
         if maximum < percent:
             maximum = percent
             l = i
@@ -113,7 +113,7 @@ def findDate(symbol,date):
     with open(filename, 'r') as file:
         line = file.read().splitlines()
     i = 2
-    while(i < len(line) - 2):
+    while(i < len(line)):
         array = line[i].split(',')
         if (str(array[0])==str(date)):
             break
@@ -127,7 +127,7 @@ def findYear(symbol, year):
     i = 2
     array =[]
     array2 = []
-    while(i < len(line) - 2):
+    while(i < len(line)):
         array = line[i].split(',')
         if str(year) == array[0].split('/')[0]:
 
@@ -141,9 +141,11 @@ def findYear(symbol, year):
 def getAveragePrice(symbol,year):
     symbol += '.dat'
     [start, finish] = findYear(symbol,year)
+
     filename = os.path.join(DataPath, symbol)
     with open(filename, 'r') as file:
         line = file.read().splitlines()
+    #print(line[start],line[finish])
     i = start
     n = 0
     DailyAve = 0
@@ -154,7 +156,8 @@ def getAveragePrice(symbol,year):
         n += 1
         i += 1
     ave = DailyAve / n
-    #print(ave)
+
+
     return ave
 
 def getCountOver(symbol,price):
@@ -176,10 +179,10 @@ def getCountOver(symbol,price):
     #getMaxDifference('FB')
     #getMaxDifference('MSFT')
     #getMaxDifference('TSLA')
-    #getGainPercent('AAPL')
-    #print(getBestGain('2019/01/11'))
-    #print(getAveragePrice('AAPL', 2019))
-    #print(getCountOver('AAPL', 179.35))
+    #print(getGainPercent('FB'))
+    #print(getBestGain('2015/07/07'))
+    #print(getAveragePrice('FB', 2014))
+    #print(getCountOver('MSFT', 99.43))
     #findDate('AAPL.dat','2018/12/14')
 
     #getVolumeSum('AAPL', '2019/01/02', '2019/01/11')
