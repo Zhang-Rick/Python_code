@@ -13,7 +13,6 @@ from os.path  import isfile, join
 #######################################################
 DataPath = os.path.expanduser('~ee364/DataFolder/Prelab02')
 
-
 def getMaxDifference(symbol):
     symbol += ".dat"
     filename = os.path.join(DataPath, symbol)
