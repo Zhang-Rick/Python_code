@@ -135,7 +135,6 @@ def findYear(symbol, year):
 def getAveragePrice(symbol,year):
     symbol += '.dat'
     [start, finish] = findYear(symbol,year)
-
     filename = os.path.join(DataPath, symbol)
     with open(filename, 'r') as file:
         line = file.read().splitlines()
