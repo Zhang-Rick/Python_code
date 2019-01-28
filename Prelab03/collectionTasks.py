@@ -2,7 +2,7 @@
 #    Author:      <Linfeng Zhang >
 #    email:       <zhan2642@purdue.edu >
 #    ID:           <ee364b21 , e.g. ee364j20 >
-#    Date:         <01/19/2019 >
+#    Date:         <01/28/2019 >
 #######################################################
 import os      # List of  module  import  statements     # Each  one on a line
 import glob
@@ -11,7 +11,6 @@ from collections import Counter
 # Module  level  Variables. (Write  this  statement  verbatim .)
 #######################################################
 DataPath= os.path.expanduser('~ee364/DataFolder/Prelab03')
-
 def getComponentCountByStudent(projectID,componentSymbol):
     projectFilename = os.path.join(DataPath,"maps/"+"projects.dat")
     with open(projectFilename,'r') as f:
@@ -95,7 +94,7 @@ def getComponentCountByStudent(studentName, componentSymbol):
             Num = findComponent('capacitors',componentArray)
         elif componentSymbol == "T":
             Num = findComponent('transistors',componentArray)
-        print(Num)
+        #print(Num)
         return Num
 
 def getParticipationByStudent(studentName):
@@ -215,7 +214,7 @@ def getParticipationByProject(projectID):
             i += 1
         i = 0
         j += 1
-    print(studentName,len(studentName))
+    #print(studentName,len(studentName))
     return studentName
 
 def getCostOfProject():
@@ -297,7 +296,7 @@ def getCostOfProject():
         projectPriceMap[projectID] = round(price,2)
         i = j - 1
         i += 1
-    print(projectPriceMap)
+    #print(projectPriceMap)
     return projectPriceMap
 
     #print(projectCircuitMap)
@@ -356,7 +355,7 @@ def getProjectByComponent(componentIDs):
                     array.append(list(projectDeviceMap.keys())[i])
             j += 1
         i += 1
-    print(array,'\n',len(array))
+    #print(array,'\n',len(array))
     return array
 
 def getCommonByProject(projectID1,projectID2):
@@ -411,8 +410,8 @@ def getCommonByProject(projectID1,projectID2):
     projectID1Array = set(projectDeviceMap[projectID1])
     projectID2Array = set(projectDeviceMap[projectID2])
     answer = list(set(projectID1Array).intersection(projectID2Array))
-    print(len(projectID1Array),'\n',len(projectID2Array))
-    print(sorted(answer),'\n',len(answer))
+    #print(len(projectID1Array),'\n',len(projectID2Array))
+    #print(sorted(answer),'\n',len(answer))
     return sorted(answer)
 
 def getComponentReport(componentID123):
@@ -473,27 +472,76 @@ def getComponentReport(componentID123):
     while j < len(componentIDs):
         map[componentIDs[j]] = deviceProjectMap[componentIDs[j]]
         j += 1
-    print(map)
+    #print(map)
     return  map
 
 
-def getCircuitByStudent(studentNames):
+def getCircuitByStudent(studentName123):
+    studentNames = list(studentName123)
     studentsFilename = os.path.join(DataPath, "maps/" + "students.dat")
     with open(studentsFilename, 'r') as f:
         studentsline = f.read().splitlines()
     studentNamesArray = []
-    i = 0
+    i = 2
 
     while i < len(studentsline):
-        studentNamesTemp = studentsline[3].split(' ')[0] + studentsline[3].split(' ')[1]
+        studentNamesTemp = studentsline[i].split(' ')[0] + ' ' +studentsline[i].split(' ')[1]
         j = 0
         while j < len(studentNames):
-            if studentNamesTemp == studentNames[j]:
-                studentNamesArray.append(studentsline[3].split(' ')[len((studentsline[3].split(' ')))])
+            #print(studentNamesTemp.strip(),studentNames[j],len(studentsline))
+            if studentNamesTemp.strip() == studentNames[j]:
+                studentNamesArray.append(studentsline[3].split(' ')[len((studentsline[3].split(' ')))-1])
+                break
             j += 1
         i += 1
-    print(studentNamesArray)
 
+
+    #print(studentNamesArray)
+    files = glob.glob(DataPath + '/circuits' + '/*.dat')
+    i = 0
+    circuitArray = []
+    z = 0
+    while z < len(studentNamesArray):
+        while i < len(files):
+            with open(files[i]) as f:
+                lines = f.read().splitlines()
+            #print('1243')
+            j = 0
+            while j < len(lines):
+                #print(lines[j])
+                #print('123532462')
+                j += 2
+                while j < len(lines):
+                    print(lines[j],studentNamesArray[z])
+                    if lines[j] == studentNamesArray[z]:
+                        if files[i].split('/')[8].split('_')[1].split('.')[0] not in circuitArray:
+                            circuitArray.append(files[i].split('/')[8].split('_')[1].split('.')[0])
+                    j += 1
+            i += 1
+        z += 1
+    return  circuitArray
+
+def getCircuitByComponent(componentID213):
+    componentIDs = list(componentID213)
+    files = glob.glob(DataPath + '/circuits' + '/*.dat')
+    i = 0
+    array = []
+    while i < len(files):
+        with open(files[i]) as f:
+            lines = f.read().splitlines()
+        z = 0
+        while z < len(componentIDs):
+            k = 2
+            while k < len(lines):
+                print(lines[k].split(' ')[len(lines[k].split(' '))-1],componentIDs[z])
+                if lines[k].split(' ')[len(lines[k].split(' '))-1] == componentIDs[z]:
+                    print(1213)
+                    array.append(files[i].split('/')[8].split('_')[1].split('.')[0])
+                k+=1
+            z += 1
+
+        i += 1
+    return array
 
 
 def find(folder,filename,result,collome):
@@ -548,7 +596,8 @@ if __name__  == "__main__":
     #getProjectByComponent(['TAZ-349'])
     #getCommonByProject('082D6241-40EE-432E-A635-65EA8AA374B6', '08EDAB1A-743D-4B62-9446-2F1C5824A756')
     #getComponentReport(['HOR-267'])
-    getCircuitByStudent('studentNames')
+    getCircuitByStudent(['Alexander, Carlos'])
+    #getCircuitByComponent(['LQW-368','GUL-971'])
     #print(getVolumeSum('MSFT', '2014/01/17', '2018/01/08'))
     #22110230
     #30476834813
