@@ -53,10 +53,12 @@ def getComponentCountByStudent(studentName, componentSymbol):
         studentsline = f.read().splitlines()
     #print(studentName.split(' ')[0])
     line = find('ads','students.dat',studentName.split(' ')[0],0)
-    #print(studentsline[2].split(' ')[1],'\n',studentName.split(', ')[1])
+    #print(studentsline[line].split(' '))
+
+    #print(studentsline[1].split(' ')[1],'\n',studentName.split(', ')[1])
 
 
-    if studentsline[2].split(' ')[1].strip() != studentName.split(',')[1].strip():
+    if studentsline[line].split(' ')[1] != studentName.split(' ')[1]:
         raise ValueError("ValueError")
         return ValueError
     else:
@@ -512,7 +514,7 @@ def getCircuitByStudent(studentName123):
                 #print('123532462')
                 j += 2
                 while j < len(lines):
-                    print(lines[j],studentNamesArray[z])
+                    #print(lines[j],studentNamesArray[z])
                     if lines[j] == studentNamesArray[z]:
                         if files[i].split('/')[8].split('_')[1].split('.')[0] not in circuitArray:
                             circuitArray.append(files[i].split('/')[8].split('_')[1].split('.')[0])
@@ -533,9 +535,9 @@ def getCircuitByComponent(componentID213):
         while z < len(componentIDs):
             k = 2
             while k < len(lines):
-                print(lines[k].split(' ')[len(lines[k].split(' '))-1],componentIDs[z])
+                #print(lines[k].split(' ')[len(lines[k].split(' '))-1],componentIDs[z])
                 if lines[k].split(' ')[len(lines[k].split(' '))-1] == componentIDs[z]:
-                    print(1213)
+                    #print(1213)
                     array.append(files[i].split('/')[8].split('_')[1].split('.')[0])
                 k+=1
             z += 1
@@ -586,17 +588,17 @@ def findComponent(component,array):
 
 
 
-if __name__  == "__main__":
+#if __name__  == "__main__":
     #print(getComponentCountByStudent('082D6241-40EE-432E-A635-65EA8AA374B6', "C"))
-    #getComponentCountByStudent('Adams,asdfasd Keith', 'I')
-    #getParticipationByStudent('Bryant, 123Evelyn')
+    #getComponentCountByStudent('Adams, Keith', 'I')
+    #getParticipationByStudent('Bryant, Evelyn')
     #findDate('AAPL.dat','2018/12/14')
     #getParticipationByProject('082D6241-40EE-432E-A635-65EA8AA374B6')
     #getCostOfProject()
     #getProjectByComponent(['TAZ-349'])
     #getCommonByProject('082D6241-40EE-432E-A635-65EA8AA374B6', '08EDAB1A-743D-4B62-9446-2F1C5824A756')
     #getComponentReport(['HOR-267'])
-    getCircuitByStudent(['Alexander, Carlos'])
+    #getCircuitByStudent(['Alexander, Carlos'])
     #getCircuitByComponent(['LQW-368','GUL-971'])
     #print(getVolumeSum('MSFT', '2014/01/17', '2018/01/08'))
     #22110230
