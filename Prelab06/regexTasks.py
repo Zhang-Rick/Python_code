@@ -203,7 +203,7 @@ def getEmployeesWithoutIDs():
     i = 0
     while i < len(names2):
         match0 = re.search('(?P<first>[\w]+)[,][ \t](?P<last>[\w]+).+', names2[i])
-        #print(match0)
+        #print(match0)12
         if match0 == None:
             match1 = re.search('(?P<first>[\w]+)[ \t](?P<last>[\w]+).+', names2[i])
             Name = match1["first"] + ' ' + match1["last"]
