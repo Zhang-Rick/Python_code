@@ -114,37 +114,61 @@ def getEmployeesWithIDs():
     Filename = DataPath + '/Employees.txt'
     with open(Filename)as f:
         lines = f.read()
-    pattern = "[0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12}"
-    IDs = re.findall(pattern,lines)
-    pattern1 = "[A-Z][a-z]+[,]?[ \t][A-Z][a-z]+[,]{2}[ \t][,][ \t][,]{2}"
-    names = re.findall(pattern1,lines)
-    #print()
-    #print(len(IDs),len(names))
+    pattern = '[A-Z][a-z]+[,]?[ \t][A-Z][a-z]+[,; \t{]+[0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12}'
+    # pattern = "[0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12}"
+
+    answer = re.findall(pattern, lines)
+    #print(answer)
     i = 0
-    while i < len(names):
-        answer = re.findall(',', names[i])
-        # print(answer)
-        if str(answer) != None:
-            name = re.findall('\w+', names[i])
-            first = name[1]
-            last = name[0]
-            # print(first)
-            names[i] = first + ' ' + last
-            # print(multiple[i])
+    map = {}
+    while i < len(answer):
+        pattern = '(?P<name>[A-Z][a-z]+[,]?[ \t][A-Z][a-z]+)[,; \t{]+(?P<ID1>[0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12})'
+        Match = re.search(pattern,answer[i])
+        name1 = Match["name"]
+        patternName = ','
+        matchName = re.search(patternName, name1)
+        if matchName == None:
+            name = name1
+        else:
+            patternName = '(?P<Last>[a-zA-Z]+)[,][ \t](?P<First>[a-zA-Z]+)'
+            match1 = re.search(patternName, name1)
+            name = match1["First"] + ' ' + match1["Last"]
+        ID1 = Match["ID1"]
+        ID = str(UUID(ID1))
+        map[name] = ID
         i += 1
-    i= 0
-    while i < len(IDs):
-        IDs[i] = str(UUID(IDs[i]))
-        i += 1
+    return  map
+    #print(len(map),map)
     #print(len(IDs),IDs)
-    #print(len(names),names)
-    Map = {}
-    i = 0
-    while i < len(IDs):
-        Map[names[i]]=IDs[i]
-        i += 1
-    #print(Map)
-    return  Map
+    # pattern1 = "[A-Z][a-z]+[,]?[ \t][A-Z][a-z]+[,]{2}[ \t][,][ \t][,]{2}"
+    # names = re.findall(pattern1,lines)
+    # #print()
+    # #print(len(IDs),len(names))
+    # i = 0
+    # while i < len(names):
+    #     answer = re.findall(',', names[i])
+    #     # print(answer)
+    #     if str(answer) != None:
+    #         name = re.findall('\w+', names[i])
+    #         first = name[1]
+    #         last = name[0]
+    #         # print(first)
+    #         names[i] = first + ' ' + last
+    #         # print(multiple[i])
+    #     i += 1
+    # i= 0
+    # while i < len(IDs):
+    #     IDs[i] = str(UUID(IDs[i]))
+    #     i += 1
+    # #print(len(IDs),IDs)
+    # #print(len(names),names)
+    # Map = {}
+    # i = 0
+    # while i < len(IDs):
+    #     Map[names[i]]=IDs[i]
+    #     i += 1
+    # print(len(Map))
+    return
 def getEmployeesWithPhones():
     Filename = DataPath + '/Employees.txt'
     with open(Filename) as f:
@@ -184,7 +208,7 @@ def getEmployeesWithoutIDs():
     with open(Filename)as f:
         lines = f.read()
     pattern1 = "[A-Z][a-z]+[,]?[ \t][A-Z][a-z]+[,; \t]+[\(]?[0-9]{3}[\)]?[ \t]?[-]?[0-9]{3}[-]?[0-9]{4}"
-    pattern2 = "[A-Z][a-z]+[,]?[ \t][A-Z][a-z]+[,; \t]+[a-zA-Z]+[\n]"
+    pattern2 = "[A-Z][a-z]+[,]?[ \t][A-Z][a-z]+[,; \t]+[a-zA-Z]+[ \t]?[a-zA-Z]*[\n]"
     names1 = re.findall(pattern1, lines)
     i = 0
     answer = []
