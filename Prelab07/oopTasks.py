@@ -88,7 +88,7 @@ class Circuit():
                 t += 1
             else:
                 r += 1
-        print(self.components[1])
+        #print(self.components[1])
         return (f"{self.ID}: (R = {r}, C = {c}, I = {i}, T = {t}), Cost = ${self.cost}")
 
     def getByType(self,Components):
