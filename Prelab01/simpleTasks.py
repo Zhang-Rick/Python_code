@@ -41,7 +41,7 @@ def find(pattern):
                   break
               x += 1
          i += 1
-
+     print(array)
      return array
 def getStreakProduct(sequence, maxSize, product):
     i = 0
@@ -206,8 +206,8 @@ def convertToInteger(boolList):
     #print(array)
     return array
 
-#if __name__ =="__main__":
-    #find("x8")
+if __name__ =="__main__":
+    find("x1")
     #getStreakProduct("11114822",5,32)
     #writePyramids('Pyramis15.txt',15,5,'*')
     #getStreaks("AAASSSSSSAPP","SAQT")

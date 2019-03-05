@@ -29,7 +29,7 @@ def getUrlParts(url):
 
 
 def getQueryParameters(url):
-    pattern = "([0-9a-zA-Z._-]+[=][0-9a-zA-Z._-]+)"
+    re.compile("([0-9a-zA-Z._-]+[=][0-9a-zA-Z._-]+)")
     multiple = re.findall(pattern, url)
     #pp(multiple)
     i = 0

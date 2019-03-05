@@ -16,13 +16,35 @@ DataPath = os.path.expanduser('~ee364/DataFolder/Prelab04')
 def techToID():
     filename = os.path.join(DataPath,'maps/technicians.dat')
     with open(filename) as f:
-        lines = f.read().splitlines()
-    i = 2
-    techToIDMap = {}
-    while i < len(lines):
-        name = list(filter(None,lines[i].split(' ')))[0] +' '+ list(filter(None,lines[i].split(' ')))[1]
-        techToIDMap[name] = list(filter(None,lines[i].split(' ')))[3]
-        i += 1
+         lines = f.readlines()[2:]
+
+    techToIDMap = dict()
+
+    # for line in lines:
+    #     lineAsList = line.split()
+    #     lastName = lineAsList[0]
+    #     firstName = lineAsList[1]
+    #     id = lineAsList[-1]
+    #     fullName = lastName + " " + firstName
+    #     techToIDMap[fullName] = id
+
+    for line in lines:
+        lineAsList = line.split()
+        name = lineAsList[0] + " " + lineAsList[1]
+        id = lineAsList[-1]
+        techToIDMap[name] = id
+
+
+    return techToIDMap
+
+    # i = 2
+    # techToIDMap = {}
+    # while i < len(lines):
+    #     name = list(filter(None,lines[i].split(' ')))[0] +' '+ list(filter(None,lines[i].split(' ')))[1]
+    #     techToIDMap[name] = list(filter(None,lines[i].split(' ')))[3]
+    #     i += 1
+
+
 
     #print(techToIDMap)
     #techID = techToIDMap[techName]
@@ -237,6 +259,8 @@ def getUnusedStrain():
                 virusArray.remove(virusName)
             j += 1
         i += 1
+
+        
     #print(virusArray,'\n',len(virusArray))
     return virusArray
 
@@ -249,7 +273,7 @@ def getUnusedStrain():
 
 
 
-#if __name__  == "__main__":
+if __name__  == "__main__":
     #techToID()
     #virusToID()
     #filename = os.path.join(DataPath,'maps/technicians.dat')
@@ -261,8 +285,11 @@ def getUnusedStrain():
     #    getTechWork(name)
     #    i += 1
     #getStrainConsumption('Deltavirus')
-    #getTechSpeeding()
+    #abc = getTechSpeeding()
+    #print(abc)
     #virusCost()
-    #getStrainCost()
+    abc = getStrainCost()
+    print(abc)
     #getAbsentTechs()
-    #getUnusedStrain()
+    #gde=getUnusedStrain()
+    #print(gde)
