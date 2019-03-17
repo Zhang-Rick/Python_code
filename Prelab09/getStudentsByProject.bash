@@ -7,8 +7,8 @@
 #######################################################
 DataPath=~ee364/DataFolder/Prelab09
 # Write  your  code  here
-project="$1"
-circuits=$(grep -E $prxoject $DataPath"/maps/projects.dat" | cut -f5 -d ' ' | sort -u)
+project=$1
+circuits=$(grep -E "$project" $DataPath"/maps/projects.dat" | cut -f5 -d ' ' | sort -u)
 for circuit in $circuits
 do
  #echo $circuit
