@@ -94,9 +94,9 @@ class Consumer(QMainWindow, Ui_MainWindow):
 
         for line1 in f:
             match0 = re.search('[g][r][a][d][u][a][t][e][=]["](?P<True>(?:[t][r][u][e]|[f][a][l][s][e]))["][>](?P<Name>[a-zA-Z0-9- \t]+)[<][/][S][t][u][d][e][n][t][N][a][m][e][>]',line1)
-            print(match0)
+            #print(match0)
             if match0 != None:
-                print(match0["Name"],match0["True"])
+                #print(match0["Name"],match0["True"])
                 self.box[0].setText(match0["Name"])
                 if match0["True"] == 'true':
                     self.chkGraduate.setChecked(True)
@@ -118,7 +118,7 @@ class Consumer(QMainWindow, Ui_MainWindow):
             match=re.search('[<][S][t][u][d][e][n][t][I][D][>](?P<Last>[0-9-]{11})[<][/][S][t][u][d][e][n][t][I][D][>]',line)
             if match != None:
                 self.txtStudentID.setText(match["Last"])
-        '    <College>Industrial Engineering</College>'
+        #'    <College>Industrial Engineering</College>'
         f3 = open(filePath, 'r')
         for line in f3:
             match=re.search('[<][C][o][l][l][e][g][e][>](?P<Last>[a-zA-z]+[ ][E][n][g][i][n][e][e][r][i][n][g])[<][/][C][o][l][l][e][g][e][>]',line)
